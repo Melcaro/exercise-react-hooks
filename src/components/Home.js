@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { useToggle } from './Toogle';
+
 export const Counter = () => {
   const [counter, incrementCounter] = useState(0);
   const [date, setDate] = useState(new Date());
@@ -45,6 +47,8 @@ export const Counter = () => {
       val4: val4 + 1,
     }));
 
+  const { state, toggle, toggleValue } = useToggle(false);
+
   return (
     <div>
       <button onClick={addToCounter}>{counter}</button>
@@ -66,6 +70,13 @@ export const Counter = () => {
       <div>{vals.val3}</div>
       <div>{vals.val4}</div>
       <button onClick={updateVals}>Update</button>
+
+      <div>
+        {state.toString()}
+        <button onClick={toggle}>Toggle</button>
+        <button onClick={toggleValue.bind(null, true)}>TO TRUE</button>
+        <button onClick={toggleValue.bind(null, false)}>TO FALSE</button>
+      </div>
     </div>
   );
 };
