@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { useToggle } from './Toogle';
+import { useToggle, useArray } from './Toogle';
 
 export const Counter = () => {
   const [counter, incrementCounter] = useState(0);
@@ -49,6 +49,11 @@ export const Counter = () => {
 
   const { state, toggle, toggleValue } = useToggle(false);
 
+  const { clear, value, add, pop, insertAtIndex } = useArray([
+    'hello',
+    'bonjour',
+  ]);
+
   return (
     <div>
       <button onClick={addToCounter}>{counter}</button>
@@ -76,6 +81,28 @@ export const Counter = () => {
         <button onClick={toggle}>Toggle</button>
         <button onClick={toggleValue.bind(null, true)}>TO TRUE</button>
         <button onClick={toggleValue.bind(null, false)}>TO FALSE</button>
+      </div>
+
+      <div>
+        {value}
+        <button onClick={clear}>Clear array</button>
+        <div>
+          <button onClick={add.bind(null, Math.floor(Math.random() * 10))}>
+            Add an element
+          </button>
+        </div>
+        <button onClick={pop}>Delete last element</button>
+        <div>
+          <button
+            onClick={insertAtIndex.bind(
+              null,
+              1,
+              Math.floor(Math.random() * 10)
+            )}
+          >
+            Add an element at index
+          </button>
+        </div>
       </div>
     </div>
   );
