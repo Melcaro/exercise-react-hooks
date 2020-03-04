@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { useToggle, useArray } from './Toogle';
+import { useToggle, useArray, useUnsplashPhoto } from './Toogle';
 
 export const Counter = () => {
   const [counter, incrementCounter] = useState(0);
@@ -54,6 +54,8 @@ export const Counter = () => {
     'bonjour',
   ]);
 
+  const { images, error, isLoading, loadImages } = useUnsplashPhoto('cat');
+
   return (
     <div>
       <button onClick={addToCounter}>{counter}</button>
@@ -75,14 +77,14 @@ export const Counter = () => {
       <div>{vals.val3}</div>
       <div>{vals.val4}</div>
       <button onClick={updateVals}>Update</button>
-
+      <br />
       <div>
         {state.toString()}
         <button onClick={toggle}>Toggle</button>
         <button onClick={toggleValue.bind(null, true)}>TO TRUE</button>
         <button onClick={toggleValue.bind(null, false)}>TO FALSE</button>
       </div>
-
+      <br />
       <div>
         {value}
         <button onClick={clear}>Clear array</button>
@@ -102,6 +104,19 @@ export const Counter = () => {
           >
             Add an element at index
           </button>
+        </div>
+      </div>
+      <br />
+
+      <div>
+        <button onClick={loadImages}>Load Images</button>
+        <div>
+          {!isLoading &&
+            images.map(({ id, urls: { thumb } }) => (
+              <div key={id}>
+                <img src={thumb} alt="pic" />
+              </div>
+            ))}
         </div>
       </div>
     </div>
